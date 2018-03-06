@@ -61,7 +61,7 @@ wsk -i trigger create cacheEntryTrigger --feed redhatdevelopers/infinispan-feed 
 		-p hotrod_port 11222 \ <2>
 		-p cache_name default <3>
 
-wsk action create cacheEntryTriggerAction handler.js <4>
+wsk action create cacheEntryTriggerAction src/handler.js <4>
 wsk rule create cacheEntryRule cacheEntryTrigger cacheEntryTriggerAction <5>
 ----
 
@@ -88,7 +88,7 @@ the cache entry event triggering the **cacheEntryTriggerAction**
 [code,sh]
 ----
 curl -X GET  --data "hello world"  $(minishift openshift service infinispan-feed-provider -n myproject --url)/data/add/testKey2018 <1>
-wsk activation list -limit 1 cacheEntryTriggerAction <2>
+wsk activation list --limit 1 cacheEntryTriggerAction <2>
 wsk activation result <activation-id> <3>
 ----
 <1> Add a test cache entry, this by default adds to `default` cache
